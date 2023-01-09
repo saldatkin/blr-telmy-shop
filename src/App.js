@@ -1,24 +1,18 @@
+import { Routes, Route } from 'react-router-dom';
+import Shop from './components/shop/shop.component';
+import Home from './routes/home/home.component';
+import Navigation from './routes/navigation/navigation.component';
+
+
 const App = () => {
-  const categories = [
-    {title: 'Hats'}, 
-    {title: 'Jackets'}, 
-    {title: 'Sneakers'}, 
-    {title: 'Womens'}, 
-    {title: 'Mens'} 
-  ]
-  return (
-    <div className="categories">
-      {categories.map(({title}) => {
-        return <div className="category">
-          <img className="category__image"></img>
-          <div className="category__text">
-            <h2>{title}</h2>
-            <p>Shop Now</p>
-          </div>
-        </div>
-      })}
-      
-    </div>
+  return(
+    <Routes>
+      <Route path='/' element={<Navigation />}>
+        <Route path='home' element={<Home/>} />
+        <Route path='shop' element={<Shop/>} />
+      </Route>
+    </Routes>
+    
   )
 }
 
