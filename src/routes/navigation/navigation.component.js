@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { UserContext } from "../../contexts/user.context";
 import { ReactComponent as Logo } from '../../assets/crown.svg';
+import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component.js";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
-import CartDropdown from "../../components/cart-dropdown.component.js/cart-dropdown.component";
 
 import { CartContext } from "../../contexts/cart.context";
 import { signOutUser } from "../../utils/firebase.utils";
@@ -22,6 +22,8 @@ const Navigation = () => {
     await signOutUser();
     setCurrentUser(null);
   };
+
+  console.log(isCartOpen);
 
   return(
     <Fragment>

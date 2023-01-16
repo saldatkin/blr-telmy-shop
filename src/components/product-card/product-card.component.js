@@ -1,26 +1,29 @@
 import { useContext } from 'react';
 
 import { CartContext } from '../../contexts/cart.context';
-
-import './product-card.styles.scss'
+import '../../routes/category/category.styles.scss'
 
 const ProductCard = ({ product }) => {
-    const { name, price, imageUrl } = product;
-    const { addItemToCart } = useContext(CartContext);
+  const { name, price, imageUrl } = product;
+  const { addItemToCart } = useContext(CartContext);
 
-    const addProductToCart = () => addItemToCart(product);
+  const addProductToCart = () => addItemToCart(product);
 
-
-    return (
-      <div className='product-card-container'>
-        <img src={imageUrl} alt={`${name}`} />
-        <div className='footer'>
-          <span className='name'>{name}</span>
-          <span className='price'>{price}</span>
-        </div>
-        <button product={product} onClick={addProductToCart}>Add to cart</button>
+  return (
+    <div>
+      <img src={imageUrl} alt={`${name}`} />
+      <div>
+        <span>{name}</span>
+        <span>{price}</span>
       </div>
-    );
-  };
-  
-  export default ProductCard;
+      <button
+        type='button'
+        onClick={addProductToCart}
+      >
+        Add to card
+      </button>
+    </div>
+  );
+};
+
+export default ProductCard;
