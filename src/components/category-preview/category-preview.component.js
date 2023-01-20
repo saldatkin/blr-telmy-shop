@@ -13,8 +13,10 @@ const CategoryPreview = ({ title, products }) => {
         {products
           .slice(0,4)
           .map((product) => {
-            console.log(product);
-            return <ProductCard className='products' key={product.id} product={product} />
+            return <ProductCard 
+                      className='products' 
+                      key={product.id} 
+                      product={product} />
           }
         )}
       </div>}

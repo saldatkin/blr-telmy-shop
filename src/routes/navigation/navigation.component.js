@@ -28,7 +28,7 @@ const Navigation = () => {
   return(
     <Fragment>
         <nav className="navbar">
-          <Link to='/home'>
+          <Link to='/'>
             { <Logo /> }
           </Link>
           <div className="navbar__links">
