@@ -1,5 +1,5 @@
-import { useContext, useState } from "react";
-import { UserContext } from "../../contexts/user.context";
+import { useState } from "react";
+import { selectCurrentUser } from "../../store/user/user.selector";
 import { 
     signInAuthUserWithEmailAndPassword, 
     signInWithGooglePopup 
@@ -14,8 +14,6 @@ const SignInForm = () => {
     const [ fieldValues, setFieldValues ] = useState(defaultSignInValues);
     const { email, password } = fieldValues;
 
-    const { setCurrentUser } = useContext(UserContext);
-
 
     const resetFields = () => {
         setFieldValues(defaultSignInValues);
@@ -23,8 +21,8 @@ const SignInForm = () => {
 
 
     const signInWithGoogle = async () => {
-        const { user } = await signInWithGooglePopup();
-        setCurrentUser(user);
+        await signInWithGooglePopup();
+        //setCurrentUser(user);
     }
 
 
@@ -39,15 +37,15 @@ const SignInForm = () => {
         event.preventDefault();
 
         try {
-            const { user } = await signInAuthUserWithEmailAndPassword(
+            signInAuthUserWithEmailAndPassword(
                 email,
                 password
             ); 
-            setCurrentUser(user)
+            resetFields();
+            //setCurrentUser(user)
         } catch(error) {
             console.log('error creation of user', error.message);
         }
-        resetFields();
     }
 
 
@@ -71,7 +69,7 @@ const SignInForm = () => {
                     value={password} 
                     onChange={handleChange}>
                 </input>
-                <button type="submit">Sign In</button>
+                <button type="submit" onClick={handleFormSubmit}>Sign In</button>
             </form>
               
             <button onClick={signInWithGoogle}>

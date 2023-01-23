@@ -1,10 +1,12 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+
+import { selectCurrentUser } from "../../store/user/user.selector";
 import { 
     createAuthUserWithEmailAndPassword, 
     createUserDocumentFromAuth 
 } from "../../utils/firebase.utils";
 
-import { UserContext } from "../../contexts/user.context";
 
 const defaultSignUpValues = {
     displayName: '',
@@ -16,9 +18,6 @@ const defaultSignUpValues = {
 const SignUpForm = () => {
     const [ fieldValues, setFieldValues ] = useState(defaultSignUpValues);
     const { displayName, email, password, confirmPassword } = fieldValues;
-
-    const { setCurrentUser } = useContext(UserContext); 
-
     
     const resetFields = () => {
         setFieldValues(defaultSignUpValues);
@@ -40,14 +39,12 @@ const SignUpForm = () => {
 
         try {
             const { user } = await createAuthUserWithEmailAndPassword(email, password);
-            await createUserDocumentFromAuth(user, { displayName });   
-            
-            setCurrentUser(user);
+            await createUserDocumentFromAuth(user, { displayName });
+            //setCurrentUser(user);
             resetFields();
         } catch(error) {
             console.log('error creation of user', error.message);
         }
-         
     }
 
     return (

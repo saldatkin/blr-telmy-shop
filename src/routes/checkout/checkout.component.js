@@ -1,31 +1,21 @@
-import { useContext } from "react";
-import { CartContext } from "../../contexts/cart.context";
+import { useDispatch, useSelector } from "react-redux";
+import { 
+    addItemToCart, 
+    removeItemFromCart,
+    removeProductFromCart,
+ } from "../../store/cart/cart.action";
+import { selectCartItems, selectOverallPrice } from "../../store/cart/cart.selector";
 
 import './checkout.styles.scss'
 
 const Checkout = () => {
-    const { 
-        cartItems, 
-        addItemToCart, 
-        removeItemFromCart, 
-        removeProductFromCart,
-        overallPrice,
-    } = useContext(CartContext);
+    const cartItems = useSelector(selectCartItems);
+    const overallPrice = useSelector(selectOverallPrice);
 
+    const dispatch = useDispatch();
 
     return(
         <div >
-            <table>
-                <thead>
-                    <tr className="checkout">
-                        <th>Product</th>
-                        <th>Description</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Remove</th>
-                    </tr>
-                </thead>
-            </table>
             {
             cartItems.map((cartItem) => {
                 const { imageUrl, price, name, quantity,id } = cartItem;
@@ -38,18 +28,18 @@ const Checkout = () => {
                         <div>{ name }</div>
                         <div className="checkout__quantity">
                             <button 
-                                onClick={() => removeItemFromCart(cartItem)} 
+                                onClick={() => dispatch(removeItemFromCart(cartItems,cartItem))} 
                                 className="change-quantity-btn">&#10094;</button>
                             <p>
                                 { quantity }
                             </p>
                             <button 
-                                onClick={() => addItemToCart(cartItem)} 
+                                onClick={() => dispatch(addItemToCart(cartItems, cartItem))} 
                                 className="change-quantity-btn">&#10095;</button>
                         </div>
                         <div>{ price * quantity }</div>
                         <button 
-                            onClick={() => removeProductFromCart(cartItem)} 
+                            onClick={() => dispatch(removeProductFromCart(cartItems, cartItem))} 
                             className="change-quantity-btn">&#10005;
                         </button>
                     </div>)

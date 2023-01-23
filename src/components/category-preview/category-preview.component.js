@@ -1,4 +1,4 @@
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
 import { Link } from "react-router-dom";
 
 import '../../routes/shop/shop.styles.scss'
